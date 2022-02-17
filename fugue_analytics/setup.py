@@ -2,7 +2,7 @@ from fugue_analytics.utilities import connect_to_postgres
 
 def create_metrics_table():
     # Creates a table with date, source, and value columns
-    # source can be something like 'Slack' or 'Github'
+    # source can be something like 'Slack Joins' or 'Github Stars'
     conn = connect_to_postgres()
     cur = conn.cursor()
     cur.execute("""
@@ -16,8 +16,8 @@ def create_metrics_table():
     print("metric Table created successfully........")
     conn.close()
 
-def drop_table(table_name="metrics_over_time"):
-    # Creates a 
+def drop_table(table_name):
+    # Drops a table
     conn = connect_to_postgres()
     cur = conn.cursor()
     cur.execute("""
