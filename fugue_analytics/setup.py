@@ -16,19 +16,14 @@ def create_metrics_table():
     print("metric Table created successfully........")
     conn.close()
 
-def recreate_metrics_table():
+def drop_table(table_name="metrics_over_time"):
     # Creates a 
     conn = connect_to_postgres()
     cur = conn.cursor()
     cur.execute("""
-        CREATE TABLE metrics_over_time ( 
-            date DATE, 
-            source TEXT NOT NULL, 
-            value INTEGER NOT NULL,
-            PRIMARY KEY(date, source)
-           );
-    """)
-    print("metric Table created successfully........")
+        DROP TABLE IF EXISTS {};
+    """.format(table_name))
+    print(f"{table_name} dropped successfully........")
     conn.close()
 
 
