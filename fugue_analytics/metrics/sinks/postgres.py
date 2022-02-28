@@ -1,6 +1,8 @@
 from fugue_analytics.utilities.postgres import connect_to_postgres
 from prefect import task
+import psycopg2 as pg
 
+@task
 def insert_df_to_table(df, table):
     """
     Using cursor.executemany() to insert a dataframe
@@ -26,7 +28,6 @@ def insert_df_to_table(df, table):
     except (Exception, pg.DatabaseError) as error:
         print("Error: %s" % error)
         conn.rollback()
-        return 1
 
     finally:
         cursor.close()

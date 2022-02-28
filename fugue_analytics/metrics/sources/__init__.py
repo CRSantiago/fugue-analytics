@@ -1,0 +1,2 @@
+from fugue_analytics.metrics.sources.github import get_github_star_count
+from fugue_analytics.metrics.sources.slack import get_slack_member_count
