@@ -9,13 +9,14 @@ def get_github_star_count(repo="fugue-project/fugue"):
     forks = res['forks']
 
     logger = get_run_logger()
-    logger.info('test')
+    logger.info(f"There are this many stars: {stars}")
+    logger.info(f"There are this many forks: {forks}")
 
     return stars, forks
 
 if __name__ == "__main__":
-    @flow
-    def myflow():
-        stars, forks = get_github_star_count()
-        print(f"There are this many stars: {stars}")
-        print(f"There are this many forks: {forks}")
+    @flow()
+    def github_star_count(repo="fugue-project/fugue"):
+        stars, forks = get_github_star_count(repo).wait().result()
+
+    github_star_count()
