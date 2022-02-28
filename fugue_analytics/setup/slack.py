@@ -1,4 +1,4 @@
-from fugue_analytics.utilities.postgres import insert_df_to_table
+from fugue_analytics.metrics.sinks.postgres import insert_df_to_table
 import pandas as pd
 
 # @task(retries = 3)
@@ -6,7 +6,7 @@ def initialize_slack_stats():
     """
     Inserts initial Slack channel joins
     """
-    df = pd.DataFrame({"date": pd.to_datetime(["2020-02-27"]),
+    df = pd.DataFrame({"datetime": pd.to_datetime(["2020-02-27"]),
                        "source": ["Slack Channel Joins"],
                        "value": [106]})
 

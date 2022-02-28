@@ -1,4 +1,4 @@
-from fugue_analytics.utilities.postgres import connect_to_postgres
+from fugue_analytics.utilities.postgres import connect_to_postgres, execute_query
 from fugue_analytics.setup.github import initialize_github_stats
 from fugue_analytics.setup.slack import initialize_slack_stats
 
@@ -11,10 +11,10 @@ def create_metrics_table():
     cur = conn.cursor()
     cur.execute("""
         CREATE TABLE metrics_over_time ( 
-            date DATE, 
+            datetime TIMESTAMP, 
             source TEXT NOT NULL, 
             value INTEGER NOT NULL,
-            PRIMARY KEY(date, source)
+            PRIMARY KEY(datetime, source)
            );
     """)
     print("metric Table created successfully........")
@@ -34,23 +34,6 @@ def drop_table(table_name="metrics_over_time"):
     conn.commit()
     conn.close()
     cur.close()
-    return
-
-def execute_query(query=None):
-    if not query:
-        query = """
-                SELECT * FROM metrics_over_time;
-                """
-    # Drops a table
-    conn = connect_to_postgres()
-    cur = conn.cursor()
-    cur.execute(query)
-    data = cur.fetchall()
-    print(data)
-    print("Fetched Metrics Data")
-
-    cur.close()
-    conn.close()
     return
 
 
