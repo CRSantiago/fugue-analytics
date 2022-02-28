@@ -1,9 +1,10 @@
 from prefect import get_run_logger, task, flow
 from fugue_analytics.utilities import connect_to_postgres
 import httpx
+import pandas as pd
 
 @task(retries = 3)
-def get_github_star_count(repo="fugue-project/fugue"):
+def get_github_star_count(repo="fugue-project/fugue") -> pd.DataFrame:
     """
     Gets the star count of a Github repo
     """
