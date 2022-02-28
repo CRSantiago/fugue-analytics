@@ -1,5 +1,17 @@
-from fugue_analytics.utilities.postgres import connect_to_postgres
-from prefect import task
+import psycopg2 as pg
+import os
+from sqlalchemy import create_engine
+
+def connect_to_postgres():
+    # Establishes connection to Postgres database
+    conn = pg.connect(
+        database="postgres", 
+        user='postgres', 
+        password=os.environ["PG_PASSWORD"], 
+        host='35.192.179.194', 
+        port='5432'
+    )
+    return conn
 
 def insert_df_to_table(df, table):
     """
@@ -31,5 +43,8 @@ def insert_df_to_table(df, table):
     finally:
         cursor.close()
         conn.close()
-
+        
     return 
+
+# if __name__ == "__main__":
+#     insert_df_to_table()

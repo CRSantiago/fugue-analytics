@@ -46,7 +46,7 @@ def execute_query(query=None):
     cur = conn.cursor()
     cur.execute(query)
     data = cur.fetchall()
-
+    print(data)
     print("Fetched Metrics Data")
 
     cur.close()
