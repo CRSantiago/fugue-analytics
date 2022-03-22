@@ -42,4 +42,4 @@ if __name__ == "__main__":
     create_metrics_table()
     initialize_github_stats()
     initialize_slack_stats()
-    execute_query()
+    print(execute_query())

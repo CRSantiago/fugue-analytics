@@ -1,4 +1,3 @@
-from prefect import get_run_logger, task
 import os
 import requests as re
 from fugue_analytics.utilities.postgres import execute_query
@@ -6,7 +5,6 @@ import pandas as pd
 import json
 from datetime import date, datetime
 
-@task(retries = 3)
 def get_slack_member_count() -> pd.DataFrame:
     """
     Slack doesn't seem to have an API to get workspace members so we 
@@ -49,7 +47,6 @@ def get_slack_member_count() -> pd.DataFrame:
     return pd.DataFrame()
 
 if __name__ == "__main__":
-    @flow()
     def github_slack_count():
         res = get_slack_member_count()
 

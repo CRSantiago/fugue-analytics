@@ -4,7 +4,6 @@ import httpx
 import pandas as pd
 from datetime import datetime
 
-@task(retries=3)
 def get_github_star_count(repo="fugue-project/fugue") -> pd.DataFrame:
     """
     Gets the star count of a Github repo

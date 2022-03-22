@@ -1,8 +1,6 @@
 from fugue_analytics.utilities.postgres import connect_to_postgres
-from prefect import task
 import psycopg2 as pg
 
-@task
 def insert_df_to_table(df, table):
     """
     Using cursor.executemany() to insert a dataframe

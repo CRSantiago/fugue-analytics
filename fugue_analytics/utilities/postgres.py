@@ -1,6 +1,5 @@
 import psycopg2 as pg
 import os
-from sqlalchemy import create_engine
 
 def connect_to_postgres():
     # Establishes connection to Postgres database
@@ -8,7 +7,7 @@ def connect_to_postgres():
         database="postgres", 
         user='postgres', 
         password=os.environ["PG_PASSWORD"], 
-        host='35.192.179.194', 
+        host='34.121.37.113', 
         port='5432'
     )
     return conn
@@ -27,5 +26,5 @@ def execute_query(query=None):
     conn.close()
     return data
 
-# if __name__ == "__main__":
-#     insert_df_to_table()
+if __name__ == "__main__":
+    connect_to_postgres()
