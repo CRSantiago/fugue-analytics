@@ -1,0 +1,1 @@
+from fugue_analytics.metrics.sinks.postgres import insert_df_to_table
