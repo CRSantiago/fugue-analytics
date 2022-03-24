@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 *.DS_Store
+
+google_analytics_key.json
