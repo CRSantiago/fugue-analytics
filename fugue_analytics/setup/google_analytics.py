@@ -57,8 +57,6 @@ for report in response.get('reports', []):
     else:
         metric_s = f"{df_columns[0]}"
        
-    # df['datetime'] = f"{datetime.date.today()}"
-    # df['source'] = metric
     df_rows = []
     for row in rows:
         metric_e = metric_s
