@@ -3,6 +3,8 @@ import pandas as pd
 from apiclient.discovery import build 
 from oauth2client.service_account import ServiceAccountCredentials
 
+import datetime
+
 import os
 
 # Load in GA credentials from the dotenv file
@@ -36,11 +38,12 @@ response = analytics.reports().batchGet(
             ] 
         }).execute()
 
-df = pd.DataFrame()
+columns_names = ['datetime', 'source', 'value']
+df = pd.DataFrame(columns=columns_names)
 
 # Parse the data and save it do a dataframe
 for report in response.get('reports', []):
-
+    col = 0
     columnHeader = report.get('columnHeader', {})
     dimensionHeader = columnHeader.get('dimensions', [])
     metricHeaders = columnHeader.get('metricHeader', {}).get('metricHeaderEntries', [])
@@ -48,14 +51,32 @@ for report in response.get('reports', []):
     rows = report.get('data', {}).get('rows', [])
 
     df_columns = dimensionHeader + [head['name'] for head in metricHeaders]
+    
+    if(len(df_columns) == 2):
+        metric_s = f"{df_columns[0]} - {df_columns[1]}"
+    else:
+        metric_s = f"{df_columns[0]}"
+       
+    # df['datetime'] = f"{datetime.date.today()}"
+    # df['source'] = metric
     df_rows = []
-        
     for row in rows:
+        metric_e = metric_s
         dimension = row.get('dimensions', [])
         dateRangeValues = row.get('metrics', [])[0].get('values', [])
+
+        date = datetime.date.today()
             
         df_row = dimension + [int(value) for value in dateRangeValues]
-        df_rows.append(df_row)
+        if(len(df_row) == 2):
+            metric_e += f" - {df_row[0]}"
+            value = df_row[1]
+        else:
+            value = df_row[0]
+        df.loc[len(df)] = [date, metric_e, value]
+
+print(df)
     
-    df[f"{df_columns[0]}"] = pd.Series(df_rows)
     
+    
+
