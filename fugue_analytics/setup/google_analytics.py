@@ -75,7 +75,8 @@ for report in response.get('reports', []):
             value = df_row[0]
         df.loc[len(df)] = [date, metric_e, value]
 
-print(df)
+insert_df_to_table(df, "metrics_over_time")
+
     
     
     
