@@ -75,6 +75,8 @@ def initialize_ga_stats():
             df.loc[len(df)] = [date, metric_e, value]
 
     insert_df_to_table(df, "metrics_over_time")
+    print("Successfully Inserted GA metric!")
+    return
 
 if __name__ == "__main__":
     initialize_ga_stats()
